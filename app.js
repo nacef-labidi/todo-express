@@ -4,7 +4,12 @@ var tasks = require('./routes/tasks');
 var http = require('http');
 var path = require('path');
 var mongoskin = require('mongoskin');
-var db = mongoskin.db('mongodb://localhost:27017/todo?auto_reconnect', {safe:true});
+var db_user = process.env.MONGODB_USER;
+var db_password = process.env.MONGODB_PASSWORD;
+var db_host = process.env.DATABASE_SERVICE_NAME;
+var db_name = process.env.MONGODB_DATABASE;
+var db_url = 'mongodb://' + db_user + ':' + db_password + '@' + db_host + '/' + db_name + '?auto_reconnect';
+var db = mongoskin.db(db_url, {safe:true});
 var app = express();
 
 var favicon = require('serve-favicon'),
@@ -24,7 +29,7 @@ app.use(function(req, res, next) {
 app.locals.appname = 'Express.js Todo App'
 app.locals.moment = require('moment');
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(favicon(path.join('public','favicon.ico')));
