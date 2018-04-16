@@ -9,6 +9,7 @@ var db_password = process.env.MONGODB_PASSWORD;
 var db_host = process.env.DATABASE_SERVICE_NAME;
 var db_name = process.env.MONGODB_DATABASE;
 var db_url = 'mongodb://' + db_user + ':' + db_password + '@' + db_host + '/' + db_name + '?auto_reconnect';
+console.log(db_url);
 var db = mongoskin.db(db_url, {safe:true});
 var app = express();
 
